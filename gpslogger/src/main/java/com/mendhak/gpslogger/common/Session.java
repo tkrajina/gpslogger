@@ -44,6 +44,7 @@ public class Session extends Application {
     private static Location currentLocationInfo;
     private static Location previousLocationInfo;
     private static double totalTravelled;
+    private static double totalCalories;
     private static int numLegs;
     private static boolean isBound;
     private static String description = "";
@@ -192,6 +193,10 @@ public class Session extends Application {
         return totalTravelled;
     }
 
+    public static double getTotalCalories() {
+        return totalCalories;
+    }
+
     public static int getNumLegs() {
         return numLegs;
     }
@@ -203,6 +208,10 @@ public class Session extends Application {
             Session.numLegs++;
         }
         Session.totalTravelled = totalTravelled;
+    }
+
+    public static void setTotalCalories(double calories) {
+        Session.totalCalories = calories;
     }
 
     public static Location getPreviousLocationInfo() {
