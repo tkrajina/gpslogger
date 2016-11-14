@@ -399,6 +399,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
         txtTravelled.setText(Strings.getDistanceDisplay(getActivity(), distanceValue, preferenceHelper.shouldDisplayImperialUnits()));
         txtPoints.setText(Session.getNumLegs() + " " + getString(R.string.points));
 
+        TextView txtCalories = (TextView) rootView.findViewById(R.id.simpleview_txtCalories);
+        txtCalories.setText(Session.getTotalCalories() + " calories");
+
         String providerName = locationInfo.getProvider();
         if (!providerName.equalsIgnoreCase(LocationManager.GPS_PROVIDER)) {
             setSatelliteCount(-1);
