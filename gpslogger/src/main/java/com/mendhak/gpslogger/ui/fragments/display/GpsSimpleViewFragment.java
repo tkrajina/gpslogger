@@ -46,6 +46,8 @@ import org.slf4j.Logger;
 
 import java.text.NumberFormat;
 
+import temp.DBG;
+
 public class GpsSimpleViewFragment extends GenericViewFragment implements View.OnClickListener {
 
     Context context;
@@ -401,6 +403,10 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
 
         TextView txtCalories = (TextView) rootView.findViewById(R.id.simpleview_txtCalories);
         txtCalories.setText(Session.getTotalCalories() + " calories");
+
+        DBG.todo("Calculate calories only if weight set");
+        DBG.todo("Show calories here");
+        DBG.todo("Not only simple, but detailed fragment, too");
 
         String providerName = locationInfo.getProvider();
         if (!providerName.equalsIgnoreCase(LocationManager.GPS_PROVIDER)) {
