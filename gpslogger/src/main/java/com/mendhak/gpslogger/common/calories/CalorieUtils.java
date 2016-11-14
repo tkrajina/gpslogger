@@ -1,12 +1,16 @@
 package com.mendhak.gpslogger.common.calories;
 
 import android.location.Location;
+import com.mendhak.gpslogger.common.slf4j.Logs;
+import org.slf4j.Logger;
 
 /**
  * Created by puzz on 11/11/2016.
  */
 
 public class CalorieUtils {
+
+    private static final Logger LOG = Logs.of(CalorieUtils.class);
 
     /**
      * Standard gravity in meters per second squared (m/s^2).
@@ -38,6 +42,9 @@ public class CalorieUtils {
         if (activityType == ActivityType.INVALID) {
             return 0.0;
         }
+
+        logLocation("start", start);
+        logLocation("end", stop);
 
         if (grade < 0) {
             grade = 0.0;
@@ -77,6 +84,10 @@ public class CalorieUtils {
        */
             return vo2 * duration * weight * UnitConversions.ML_TO_L * UnitConversions.L_TO_KCAL;
         }
+    }
+
+    private static void logLocation(String prefix, Location loc) {
+        LOG.info(prefix + ": (" + loc.getLatitude() + "," + loc.getLongitude() + ") speed=" + loc.getSpeed() + " time=" + loc.getTime());
     }
 
     /**
