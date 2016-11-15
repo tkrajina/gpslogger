@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.mendhak.gpslogger.R;
 import com.mendhak.gpslogger.common.EventBusHook;
@@ -42,6 +43,7 @@ import com.mendhak.gpslogger.common.Strings;
 import com.mendhak.gpslogger.common.events.ServiceEvents;
 import com.mendhak.gpslogger.common.slf4j.Logs;
 import com.mendhak.gpslogger.loggers.Files;
+
 import org.slf4j.Logger;
 
 import java.text.NumberFormat;
@@ -398,6 +400,9 @@ public class GpsSimpleViewFragment extends GenericViewFragment implements View.O
 
         txtTravelled.setText(Strings.getDistanceDisplay(getActivity(), distanceValue, preferenceHelper.shouldDisplayImperialUnits()));
         txtPoints.setText(Session.getNumLegs() + " " + getString(R.string.points));
+
+        TextView txtCalories = (TextView) rootView.findViewById(R.id.simpleview_txtCalories);
+        txtCalories.setText(preferenceHelper.weightInKg() > 0 ? Math.round(Session.getTotalCalories()) + " calories" : "?");
 
         String providerName = locationInfo.getProvider();
         if (!providerName.equalsIgnoreCase(LocationManager.GPS_PROVIDER)) {

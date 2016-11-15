@@ -36,6 +36,7 @@ import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 import com.mendhak.gpslogger.common.*;
+import com.mendhak.gpslogger.common.calories.CalorieUtils;
 import com.mendhak.gpslogger.common.events.CommandEvents;
 import com.mendhak.gpslogger.common.events.ProfileEvents;
 import com.mendhak.gpslogger.common.events.ServiceEvents;
@@ -897,8 +898,21 @@ public class GpsLoggingService extends Service  {
                 Session.getPreviousLongitude(),
                 loc.getLatitude(),
                 loc.getLongitude());
-        Session.setPreviousLocationInfo(loc);
+
         Session.setTotalTravelled(Session.getTotalTravelled() + distance);
+
+        if(preferenceHelper.weightInKg() > 0){
+            // TODO: calculate from loc altitude
+            int grade = 0;
+
+            // TODO: Ask the user about activity type
+            CalorieUtils.ActivityType activityType = CalorieUtils.ActivityType.WALKING;
+
+            double calories = CalorieUtils.getCalorie(Session.getPreviousLocationInfo(), loc, grade, preferenceHelper.weightInKg(), activityType);
+            Session.setTotalCalories(Session.getTotalCalories() + calories);
+        }
+
+        Session.setPreviousLocationInfo(loc);
     }
 
     protected void stopManagerAndResetAlarm() {

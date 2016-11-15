@@ -460,6 +460,13 @@ public class PreferenceHelper {
         return prefs.getBoolean(PreferenceNames.HIDE_NOTIFICATION_BUTTONS, false);
     }
 
+    /**
+     * Whether to hide the buttons when displaying the app notification
+     */
+    @ProfilePreference(name= PreferenceNames.WEIGHT_IN_KG)
+    public int weightInKg() {
+        return Math.round(Float.valueOf(prefs.getString(PreferenceNames.WEIGHT_IN_KG, "0")));
+    }
 
     /**
      * Whether to display certain values using imperial units
