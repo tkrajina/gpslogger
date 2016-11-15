@@ -465,7 +465,7 @@ public class PreferenceHelper {
      */
     @ProfilePreference(name= PreferenceNames.WEIGHT_IN_KG)
     public int weightInKg() {
-        return prefs.getInt(PreferenceNames.WEIGHT_IN_KG, 0);
+        return Math.round(Float.valueOf(prefs.getString(PreferenceNames.WEIGHT_IN_KG, "0")));
     }
 
     /**
