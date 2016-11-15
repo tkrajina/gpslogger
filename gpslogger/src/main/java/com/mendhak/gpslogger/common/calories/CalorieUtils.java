@@ -4,13 +4,18 @@ import android.location.Location;
 import com.mendhak.gpslogger.common.slf4j.Logs;
 import org.slf4j.Logger;
 
+import temp.DBG;
+
 /**
  * Created by puzz on 11/11/2016.
  */
 
 public class CalorieUtils {
 
-    private static final Logger LOG = Logs.of(CalorieUtils.class);
+    public static final Logger LOG = Logs.of(CalorieUtils.class);
+    static {
+        DBG.todo("private!");
+    }
 
     /**
      * Standard gravity in meters per second squared (m/s^2).
@@ -39,12 +44,21 @@ public class CalorieUtils {
 
     public static double getCalorie(
             Location start, Location stop, double grade, double weight, ActivityType activityType) {
-        if (activityType == ActivityType.INVALID) {
-            return 0.0;
-        }
-
+        double res = _getCalorie(start, stop, grade, weight, activityType);
+        
         logLocation("start", start);
         logLocation("end", stop);
+        LOG.info("Calories=" + res);
+
+        return res;
+    }
+
+    public static double _getCalorie(
+            Location start, Location stop, double grade, double weight, ActivityType activityType) {
+        if (activityType == ActivityType.INVALID) {
+            LOG.info("invalid activity");
+            return 0.0;
+        }
 
         if (grade < 0) {
             grade = 0.0;
@@ -55,6 +69,8 @@ public class CalorieUtils {
         // Duration in min
         double duration = (double) (stop.getTime() - start.getTime()) * UnitConversions.MS_TO_S
                 * UnitConversions.S_TO_MIN;
+        LOG.info("speed/2=" + speed);
+        LOG.info("duration=" + duration);
 
         if (activityType == ActivityType.CYCLING) {
       /*

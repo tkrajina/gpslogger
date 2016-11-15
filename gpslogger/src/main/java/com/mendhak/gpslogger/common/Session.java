@@ -23,6 +23,8 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
 
+import com.mendhak.gpslogger.common.calories.CalorieUtils;
+
 public class Session extends Application {
 
 
@@ -219,6 +221,7 @@ public class Session extends Application {
     }
 
     public static void setPreviousLocationInfo(Location previousLocationInfo) {
+        CalorieUtils.LOG.info("Setting previous:" + previousLocationInfo.getLatitude() + "," + previousLocationInfo.getLongitude());
         Session.previousLocationInfo = previousLocationInfo;
     }
 

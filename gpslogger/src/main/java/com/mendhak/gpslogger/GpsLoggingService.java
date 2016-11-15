@@ -831,7 +831,6 @@ public class GpsLoggingService extends Service  {
         Session.setFirstRetryTimeStamp(0);
         Session.setCurrentLocationInfo(loc);
         setDistanceTraveled(loc);
-        setCaloriesConsumed(loc);
         showNotification();
 
         if(isPassiveLocation){
@@ -899,14 +898,8 @@ public class GpsLoggingService extends Service  {
                 Session.getPreviousLongitude(),
                 loc.getLatitude(),
                 loc.getLongitude());
-        Session.setPreviousLocationInfo(loc);
+        CalorieUtils.LOG.info("distance=" + distance);
         Session.setTotalTravelled(Session.getTotalTravelled() + distance);
-    }
-
-    private void setCaloriesConsumed(Location loc) {
-        if (Session.getPreviousLocationInfo() == null) {
-            Session.setPreviousLocationInfo(loc);
-        }
 
         // TODO: calculate from loc altitude
         int grade = 0;
@@ -917,6 +910,8 @@ public class GpsLoggingService extends Service  {
 
         double calories = CalorieUtils.getCalorie(Session.getPreviousLocationInfo(), loc, grade, weight, activityType);
         Session.setTotalCalories(Session.getTotalCalories() + calories);
+
+        Session.setPreviousLocationInfo(loc);
     }
 
     protected void stopManagerAndResetAlarm() {
