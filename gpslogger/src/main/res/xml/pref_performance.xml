@@ -25,6 +25,17 @@
 
 
     <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
+        android:key="weight_in_kg"
+        android:title="@string/weight_in_kg_title"
+        android:summary="@string/weight_in_kg_summary"
+        android:dialogTitle="@string/weight_in_kg"
+        android:numeric="integer"
+        android:maxLength="3"
+        android:defaultValue="0"
+        android:hint="@string/settings_enter_meters"/>
+
+
+    <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
         android:key="distance_before_logging"
         android:title="@string/distance_filter_title"
         android:summary="@string/distance_filter_summary"

@@ -85,4 +85,5 @@ public  class PreferenceNames {
 
     public static final String LAST_VERSION_SEEN_BY_USER = "last_version_seen";
     public static final String USER_SPECIFIED_LANGUAGE = "user_specified_locale";
+    public static final String WEIGHT_IN_KG = "weight_in_kg";
 }

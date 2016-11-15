@@ -898,18 +898,19 @@ public class GpsLoggingService extends Service  {
                 Session.getPreviousLongitude(),
                 loc.getLatitude(),
                 loc.getLongitude());
-        CalorieUtils.LOG.info("distance=" + distance);
+
         Session.setTotalTravelled(Session.getTotalTravelled() + distance);
 
-        // TODO: calculate from loc altitude
-        int grade = 0;
-        // TODO: Store/retrieve weight in/from settings
-        int weight = 73;
-        // TODO: Ask the user about activity type
-        CalorieUtils.ActivityType activityType = CalorieUtils.ActivityType.WALKING;
+        if(preferenceHelper.weightInKg() > 0){
+            // TODO: calculate from loc altitude
+            int grade = 0;
 
-        double calories = CalorieUtils.getCalorie(Session.getPreviousLocationInfo(), loc, grade, weight, activityType);
-        Session.setTotalCalories(Session.getTotalCalories() + calories);
+            // TODO: Ask the user about activity type
+            CalorieUtils.ActivityType activityType = CalorieUtils.ActivityType.WALKING;
+
+            double calories = CalorieUtils.getCalorie(Session.getPreviousLocationInfo(), loc, grade, preferenceHelper.weightInKg(), activityType);
+            Session.setTotalCalories(Session.getTotalCalories() + calories);
+        }
 
         Session.setPreviousLocationInfo(loc);
     }
